@@ -4,13 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Prompts</title>
-    <link rel="stylesheet" href="./css/index.css">
+    <title>DevPrompts - AI-Powered Coding Assistant</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
-    <h1>Hello world!! by manvendra</h1>
-    <h2>Hello world by final boss</h2>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">DevPrompts</h1>
+            <span class="domain">devprompts.co</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="prompt-builder">
+            <div class="dropdown-group">
+                <label for="language">Instruction Language</label>
+                <select id="language" class="dropdown" data-next="programming-language"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="programming-language">Programming Language</label>
+                <select id="programming-language" class="dropdown" data-next="framework"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="framework">Framework</label>
+                <select id="framework" class="dropdown" data-next="objective"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="objective">Objective</label>
+                <select id="objective" class="dropdown" data-next="level">
+                    <option value="" disabled selected>Select Objective</option>
+                </select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="level">Proficiency Level</label>
+                <select id="level" class="dropdown" data-next="main-topic"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="main-topic">Main Topic</label>
+                <select id="main-topic" class="dropdown" data-next="sub-topic"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="sub-topic">Sub Topic</label>
+                <select id="sub-topic" class="dropdown" data-next="sub-topic-2"></select>
+            </div>
+
+            <div class="dropdown-group">
+                <label for="sub-topic-2">Sub Topic Level 2</label>
+                <select id="sub-topic-2" class="dropdown"></select>
+            </div>
+
+            <div class="prompt-output">
+                <label for="generated-prompt">AI Prompt Template</label>
+                <textarea id="generated-prompt" class="prompt-textarea" readonly
+                    placeholder="Your customized prompt will appear here..."></textarea>
+                <button type="button" class="copy-btn">
+                    <span class="btn-text">Copy Prompt</span>
+                    <span class="btn-icon">📋</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- We'll add JavaScript here later -->
+    <script src="js/index.js"></script>
 </body>
 
 </html>

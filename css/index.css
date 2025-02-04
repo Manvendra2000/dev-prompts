@@ -1,6 +1,92 @@
-body {
-    background-color: #252525;
-    color: whitesmoke;
+:root {
+    --primary: #2563eb;
+    --secondary: #3b82f6;
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text: #1e293b;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui;
+  }
+  
+  body {
+    background: var(--background);
+    min-height: 100vh;
+  }
+  
+  .header {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
     text-align: center;
-}
-
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .prompt-builder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  
+  .dropdown-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .dropdown {
+    padding: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--surface);
+    font-size: 1rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e293b'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.5rem;
+  }
+  
+  .prompt-output {
+    grid-column: span 3;
+    margin-top: 1.5rem;
+  }
+  
+  .prompt-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    resize: vertical;
+  }
+  
+  .copy-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: opacity 0.2s;
+  }
+  
+  .copy-btn:hover {
+    opacity: 0.9;
+  }
