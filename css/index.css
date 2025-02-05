@@ -1,92 +1,154 @@
-:root {
-    --primary: #2563eb;
-    --secondary: #3b82f6;
-    --background: #f8fafc;
-    --surface: #ffffff;
-    --border: #e2e8f0;
-    --text: #1e293b;
+:root { /* Fixed double colon */
+  --primary: #a73534;
+  --secondary: #3b82f6;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --max-width: 1200px;
+  --container-padding: clamp(1rem, 5vw, 2rem);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif; /* Added fallback */
+}
+
+body {
+  background: var(--background);
+  min-height: 100vh;
+}
+
+.header {
+  background: var(--primary);
+  color: white;
+  padding: var(--container-padding); /* Use variable */
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.container {
+  max-width: var(--max-width); /* Use variable */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--container-padding); /* Use variable */
+}
+
+.prompt-builder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+  background: var(--surface);
+  padding: var(--container-padding);
+  border-radius: 0.5rem; /* Consistent radius */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.dropdown-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  appearance: none;
+  -webkit-appearance: none; /* Vendor prefix */
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e293b'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5rem;
+}
+
+.prompt-output {
+  grid-column: 1 / -1;
+  margin-top: clamp(1rem, 3vw, 1.5rem);
+  width: 100%;
+}
+
+.prompt-textarea {
+  width: 100%;
+  min-height: clamp(150px, 30vh, 180px);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 2px solid var(--border);
+  border-radius: 0.5rem; /* Consistent radius */
+  resize: vertical;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  background-color: var(--surface); /* Use existing variable */
+  color: var(--text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Specific transitions */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(167, 53, 52, 0.2); /* Use primary color */
+}
+
+.prompt-textarea::placeholder {
+  color: color-mix(in srgb, var(--text) 50%, transparent);
+  font-style: italic;
+  font-size: clamp(0.875rem, 2vw, 1.1rem);
+}
+
+.copy-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+  transition: opacity 0.2s, background-color 0.2s; /* Added transition */
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.copy-btn:hover {
+  opacity: 0.9;
+}
+
+@media (min-width: 900px) {
+  .prompt-builder {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', system-ui;
+}
+
+/* Removed redundant 500px media query */
+
+@media (max-width: 350px) {
+  .dropdown {
+    font-size: 0.875rem; /* Better mobile readability */
   }
-  
-  body {
-    background: var(--background);
-    min-height: 100vh;
-  }
-  
-  .header {
-    background: var(--primary);
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+@media print {
+  .copy-btn {
+    display: none;
   }
   
   .container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
   }
   
   .prompt-builder {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    background: var(--surface);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    box-shadow: none;
+    border: 1px solid var(--border);
   }
-  
-  .dropdown-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .dropdown {
-    padding: 0.75rem;
-    border: 2px solid var(--border);
-    border-radius: 0.5rem;
-    background: var(--surface);
-    font-size: 1rem;
-    appearance: none;
-    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e293b'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1.5rem;
-  }
-  
-  .prompt-output {
-    grid-column: span 3;
-    margin-top: 1.5rem;
-  }
-  
+
   .prompt-textarea {
-    width: 100%;
-    min-height: 150px;
-    padding: 1rem;
-    border: 2px solid var(--border);
-    border-radius: 0.5rem;
-    resize: vertical;
+    min-height: auto;
   }
-  
-  .copy-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: opacity 0.2s;
-  }
-  
-  .copy-btn:hover {
-    opacity: 0.9;
-  }
+}
