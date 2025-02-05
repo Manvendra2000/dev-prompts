@@ -5,6 +5,139 @@ const frameworkDropdown = document.getElementById('framework');
 const promptTextarea = document.getElementById('generated-prompt');
 const objectiveDropdown = document.getElementById('objective');
 const proficiencyDropdown = document.getElementById('level');
+const mainTopicDropdown = document.getElementById('main-topic');
+const subTopicDropdown = document.getElementById('sub-topic');
+const subTopic2Dropdown = document.getElementById('sub-topic-2');
+
+// Topic hierarchy data structure - simplified without difficulty levels
+const topicHierarchy = {
+    'javascript': {
+        'DOM Manipulation': {
+            'Event Handling': ['Event Bubbling', 'Event Delegation', 'Custom Events', 'Event Prevention'],
+            'DOM Traversal': ['Parent/Child Selection', 'Siblings', 'Query Selectors', 'Element Properties'],
+            'DOM Modification': ['Creating Elements', 'Modifying Attributes', 'Changing Styles', 'Template Literals']
+        },
+        'Functions': {
+            'Function Types': ['Function Declarations', 'Function Expressions', 'Arrow Functions', 'IIFE'],
+            'Advanced Concepts': ['Closures', 'Callbacks', 'Higher-Order Functions', 'Function Composition'],
+            'Function Context': ['this Keyword', 'Bind/Call/Apply', 'Method Borrowing', 'Lexical Scope']
+        },
+        'Asynchronous Programming': {
+            'Promises': ['Promise Creation', 'Promise Chaining', 'Error Handling', 'Promise.all/race'],
+            'Async/Await': ['Async Functions', 'Error Handling', 'Parallel Execution', 'Sequential Execution'],
+            'Event Loop': ['Call Stack', 'Callback Queue', 'Microtasks', 'Macrotasks']
+        },
+        'Data Structures': {
+            'Arrays': ['Array Methods', 'Array Iteration', 'Array Transformations', 'TypedArrays'],
+            'Objects': ['Object Methods', 'Property Descriptors', 'Prototypes', 'Object Inheritance'],
+            'Maps and Sets': ['Map Operations', 'Set Operations', 'WeakMap', 'WeakSet']
+        }
+    },
+    'python': {
+        'Data Structures': {
+            'Lists': ['List Comprehension', 'List Methods', 'Slicing', 'Sorting'],
+            'Dictionaries': ['Dictionary Methods', 'Dictionary Comprehension', 'Nested Dictionaries', 'DefaultDict'],
+            'Sets': ['Set Operations', 'Frozen Sets', 'Set Methods', 'Set Theory']
+        },
+        'Functions': {
+            'Function Basics': ['Parameters', 'Return Values', 'Docstrings', 'Lambda Functions'],
+            'Decorators': ['Function Decorators', 'Class Decorators', 'Decorator Factories', 'Built-in Decorators'],
+            'Generators': ['Yield Statement', 'Generator Expressions', 'Send Method', 'Yield From']
+        },
+        'OOP': {
+            'Classes': ['Class Creation', 'Instance Methods', 'Class Methods', 'Static Methods'],
+            'Inheritance': ['Single Inheritance', 'Multiple Inheritance', 'Method Resolution', 'Abstract Classes'],
+            'Magic Methods': ['Constructors', 'Operators', 'Container Methods', 'Context Managers']
+        },
+        'File Handling': {
+            'Text Files': ['Reading', 'Writing', 'Appending', 'Context Managers'],
+            'Binary Files': ['Read/Write Binary', 'Seeking', 'Buffer Management', 'Memory Mapping'],
+            'File Systems': ['Path Operations', 'Directory Operations', 'File Attributes', 'Temporary Files']
+        }
+    }
+    // Add more programming languages as needed
+};
+
+
+// Function to populate main topics based on programming language
+function updateMainTopics() {
+    mainTopicDropdown.innerHTML = '';
+    const selectedLang = programmingLanguageDropdown.value.toLowerCase();
+    const topics = topicHierarchy[selectedLang] || {};
+
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = Object.keys(topics).length ? 'Select Main Topic' : 'No topics available';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    mainTopicDropdown.appendChild(defaultOption);
+
+    // Add topic options
+    Object.keys(topics).forEach(topic => {
+        const option = document.createElement('option');
+        option.value = topic;
+        option.textContent = topic;
+        mainTopicDropdown.appendChild(option);
+    });
+
+    // Clear dependent dropdowns
+    updateSubTopics();
+}
+
+// Function to populate sub topics based on main topic
+function updateSubTopics() {
+    subTopicDropdown.innerHTML = '';
+    const selectedLang = programmingLanguageDropdown.value.toLowerCase();
+    const selectedMainTopic = mainTopicDropdown.value;
+    const subTopics = topicHierarchy[selectedLang]?.[selectedMainTopic] || {};
+
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = Object.keys(subTopics).length ? 'Select Sub Topic' : 'No sub-topics available';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    subTopicDropdown.appendChild(defaultOption);
+
+    // Add sub-topic options
+    Object.keys(subTopics).forEach(topic => {
+        const option = document.createElement('option');
+        option.value = topic;
+        option.textContent = topic;
+        subTopicDropdown.appendChild(option);
+    });
+
+    // Clear dependent dropdown
+    updateSubTopics2();
+}
+
+// Function to populate sub topics level 2
+function updateSubTopics2() {
+    subTopic2Dropdown.innerHTML = '';
+    const selectedLang = programmingLanguageDropdown.value.toLowerCase();
+    const selectedMainTopic = mainTopicDropdown.value;
+    const selectedSubTopic = subTopicDropdown.value;
+    const subTopics2 = topicHierarchy[selectedLang]?.[selectedMainTopic]?.[selectedSubTopic] || [];
+
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = subTopics2.length ? 'Select Sub Topic Level 2' : 'No sub-topics available';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    subTopic2Dropdown.appendChild(defaultOption);
+
+    // Add sub-topic level 2 options
+    subTopics2.forEach(topic => {
+        const option = document.createElement('option');
+        option.value = topic;
+        option.textContent = topic;
+        subTopic2Dropdown.appendChild(option);
+    });
+}
+
+
 
 // Language options
 const languages = [
@@ -138,4 +271,22 @@ document.addEventListener('DOMContentLoaded', () => {
             updatePrompt();
         });
     });
+    // Add event listeners for topic dropdowns
+    programmingLanguageDropdown.addEventListener('change', () => {
+        updateFrameworkOptions();
+        updateMainTopics();
+        updatePrompt();
+    });
+
+    mainTopicDropdown.addEventListener('change', () => {
+        updateSubTopics();
+        updatePrompt();
+    });
+
+    subTopicDropdown.addEventListener('change', () => {
+        updateSubTopics2();
+        updatePrompt();
+    });
+
+    subTopic2Dropdown.addEventListener('change', updatePrompt);
 });
