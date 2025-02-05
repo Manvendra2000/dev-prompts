@@ -249,10 +249,13 @@ function updatePrompt() {
         programmingLang: programmingLanguageDropdown.value || '[Programming Language]',
         framework: frameworkDropdown.value || '[Framework]',
         objective: objectiveDropdown.value || '[Objective]',
-        proficiency: proficiencyDropdown.value || '[Proficiency Level]'
+        proficiency: proficiencyDropdown.value || '[Proficiency Level]',
+        mainTopic: mainTopicDropdown.value || '[Main Topic]',
+        subTopic: subTopicDropdown.value || '[Sub Topic]',
+        subTopic2: subTopic2Dropdown.value || '[Sub Topic Level 2]'
     };
 
-    promptTextarea.value = `As a ${selections.proficiency} developer familiar with ${selections.programmingLang}, ${selections.objective.toLowerCase()} ${selections.framework} development in ${selections.language}. Provide step-by-step guidance for: [Main Topic] focusing on [Sub Topic] and [Sub Topic Level 2].`;
+    promptTextarea.value = `As a ${selections.proficiency} developer familiar with ${selections.programmingLang}, ${selections.objective.toLowerCase()} ${selections.framework} development in ${selections.language}. Provide step-by-step guidance for: ${selections.mainTopic} focusing on ${selections.subTopic} and ${selections.subTopic2}.`;
 }
 
 // Initialize and set up event listeners
