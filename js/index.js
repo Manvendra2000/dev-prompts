@@ -37,7 +37,7 @@ const frameworksByLanguage = {
 // Objectives options
 const objectives = [
     { value: '', text: 'Select Objective', disabled: true },
-    'Learn', 'Practice', 'Build', 'Debug', 'Optimize'
+    'Learn', 'Practice'
 ];
 
 // Proficiency levels
@@ -119,9 +119,7 @@ function updatePrompt() {
         proficiency: proficiencyDropdown.value || '[Proficiency Level]'
     };
 
-    promptTextarea.value = `As a ${selections.proficiency} developer familiar with ${selections.programmingLang}, 
-${selections.objective.toLowerCase()} ${selections.framework} development in ${selections.language}. 
-Provide step-by-step guidance for: [Main Topic] focusing on [Sub Topic] and [Sub Topic Level 2].`;
+    promptTextarea.value = `As a ${selections.proficiency} developer familiar with ${selections.programmingLang}, ${selections.objective.toLowerCase()} ${selections.framework} development in ${selections.language}. Provide step-by-step guidance for: [Main Topic] focusing on [Sub Topic] and [Sub Topic Level 2].`;
 }
 
 // Initialize and set up event listeners
