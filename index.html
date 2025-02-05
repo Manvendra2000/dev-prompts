@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPrompts - Personalized prompts for learning programming using AI</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -54,9 +54,15 @@
                 <select id="sub-topic" class="dropdown" data-next="sub-topic-2"></select>
             </div>
 
-            <div class="dropdown-group">
+            <!-- <div class="dropdown-group">
                 <label for="sub-topic-2">Sub Topic Level 2</label>
                 <select id="sub-topic-2" class="dropdown"></select>
+            </div> -->
+
+            <div class="dropdown-group">
+                <label for="sub-topic-2">Specific Focus</label>
+                <input type="text" id="sub-topic-2" class="specific-topic"
+                    placeholder="Enter specific focus or details">
             </div>
 
             <div class="prompt-output">
@@ -71,8 +77,12 @@
         </section>
     </main>
 
-    <!-- We'll add JavaScript here later -->
-    <script src="js/index.js"></script>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 DevPrompts. All rights reserved.</p>
+            <p>Made with ❤️</p>
+        </div>
+        <script type="module" src="index.js"></script>
 </body>
 
 </html>
